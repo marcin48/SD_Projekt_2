@@ -1,9 +1,10 @@
 #pragma once
 class Node {
 public:
-    int value;
+    int data;
     int priority;
     Node* next;
+    Node* prev;
 
-    Node(int v, int p) : value(v), priority(p), next(nullptr) {}
+    Node(int v, int p) : data(v), priority(p), next(nullptr), prev(nullptr) {}
 };
