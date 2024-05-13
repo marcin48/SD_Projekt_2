@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "PriorityQueue.h"
+#include"Queue_heap.h"
 #include <fstream>
 #include <cstdlib>
 #include <ctime>
@@ -46,7 +47,7 @@ void test() {
     pq.print_queue();
     cout << endl;
 }   
-void load_from_file(const std::string& filename, PriorityQueueList& pq, int x) {
+void load_from_file(const std::string& filename, QueueHeap& pq, int x) {
     ifstream file(filename);
     if (!file.is_open()) {
         cout<< "Unable to open file " << filename << endl;
@@ -78,10 +79,9 @@ void generate_values(int count, const std::string& filename) {
     }
 
     file.close();
-    cout << "Generated " << count << " values and saved them to " << filename << endl;
 }
 int main() {
-    //test();
+    /*test();*/
 
     /*PriorityQueue pq;
     load_from_file("1000.txt", pq, 10);
@@ -90,7 +90,7 @@ int main() {
     int final_time1[15], final_time2[15], final_time3[15];
     
     for (int x = 2000; x <= 30000; x = x + 2000) {
-        PriorityQueueList original1, original2, original3;
+        QueueHeap original1, original2, original3;
         load_from_file("50k_1.txt", original1, x);
         load_from_file("50k_2.txt", original2, x);
         load_from_file("50k_3.txt", original3, x);
@@ -99,9 +99,9 @@ int main() {
         long int czas1 = 0, czas2 = 0, czas3 = 0;
         srand(time(nullptr));
         for (int i = 0; i < 10; i++) {
-            PriorityQueueList* copy = new PriorityQueueList(original1);
+            QueueHeap* copy = new QueueHeap(original1);
             t1 = std::chrono::steady_clock::now();
-            copy->modify_key(1000, rand() % INT_MAX + 1);
+            copy->modifyKey(1000,rand()%INT_MAX+1);
             t2 = std::chrono::steady_clock::now();
             czasy1[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 10;
             czas1 = czas1 + czasy1[i];
@@ -110,9 +110,9 @@ int main() {
         }
         srand(time(nullptr));
         for (int i = 0; i < 10; i++) {
-            PriorityQueueList* copy = new PriorityQueueList(original2);
+            QueueHeap* copy = new QueueHeap(original2);
             t1 = std::chrono::steady_clock::now();
-            copy->modify_key(1000, rand() % INT_MAX + 1);
+            copy->modifyKey(1000, rand() % INT_MAX + 1);
             t2 = std::chrono::steady_clock::now();
             czasy2[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 10;
             czas2 = czas2 + czasy2[i];
@@ -121,9 +121,9 @@ int main() {
         }
         srand(time(nullptr));
         for (int i = 0; i < 10; i++) {
-            PriorityQueueList* copy = new PriorityQueueList(original3);
+            QueueHeap* copy = new QueueHeap(original3);
             t1 = std::chrono::steady_clock::now();
-            copy->modify_key(1000, rand() % INT_MAX + 1);
+            copy->modifyKey(1000, rand() % INT_MAX + 1);
             t2 = std::chrono::steady_clock::now();
             czasy3[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 10;
             czas3 = czas3 + czasy3[i];
