@@ -9,6 +9,7 @@
 
 using namespace std;
 
+//Funkcja wizualizujaca dzialanie kolejki na liscie
 void test() {
     PriorityQueueList pq;
     pq.insert(1, 2);
@@ -47,7 +48,8 @@ void test() {
     pq.print_queue();
     cout << endl;
 }   
-void load_from_file(const std::string& filename, QueueHeap& pq, int x) {
+//Funkcja ladujaca dane z pliku do kolejki
+void load_from_file(const std::string& filename, PriorityQueueList& pq, int x) {
     ifstream file(filename);
     if (!file.is_open()) {
         cout<< "Unable to open file " << filename << endl;
@@ -63,6 +65,7 @@ void load_from_file(const std::string& filename, QueueHeap& pq, int x) {
 
     file.close();
 }
+//Funkcja generujaca dane do pliku
 void generate_values(int count, const std::string& filename) {
     ofstream file(filename);
     if (!file.is_open()) {
@@ -87,10 +90,12 @@ int main() {
     load_from_file("1000.txt", pq, 10);
     pq.print_queue();*/
     /*generate_values(50000, "50k_3.txt");*/
+
+    //Badania
     int final_time1[15], final_time2[15], final_time3[15];
     
     for (int x = 2000; x <= 30000; x = x + 2000) {
-        QueueHeap original1, original2, original3;
+        PriorityQueueList original1, original2, original3;
         load_from_file("50k_1.txt", original1, x);
         load_from_file("50k_2.txt", original2, x);
         load_from_file("50k_3.txt", original3, x);
@@ -98,10 +103,13 @@ int main() {
         double czasy1[10], czasy2[10], czasy3[10];
         long int czas1 = 0, czas2 = 0, czas3 = 0;
         srand(time(nullptr));
+        
         for (int i = 0; i < 10; i++) {
-            QueueHeap* copy = new QueueHeap(original1);
+            PriorityQueueList* copy = new PriorityQueueList(original1);
+            int y = rand() % x + 1;
+            
             t1 = std::chrono::steady_clock::now();
-            copy->modifyKey(1000,rand()%INT_MAX+1);
+            copy->return_size();
             t2 = std::chrono::steady_clock::now();
             czasy1[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 10;
             czas1 = czas1 + czasy1[i];
@@ -110,9 +118,11 @@ int main() {
         }
         srand(time(nullptr));
         for (int i = 0; i < 10; i++) {
-            QueueHeap* copy = new QueueHeap(original2);
+            PriorityQueueList* copy = new PriorityQueueList(original2);
+            int y = rand() % x + 1;
+
             t1 = std::chrono::steady_clock::now();
-            copy->modifyKey(1000, rand() % INT_MAX + 1);
+            copy->return_size();
             t2 = std::chrono::steady_clock::now();
             czasy2[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 10;
             czas2 = czas2 + czasy2[i];
@@ -121,9 +131,10 @@ int main() {
         }
         srand(time(nullptr));
         for (int i = 0; i < 10; i++) {
-            QueueHeap* copy = new QueueHeap(original3);
+            PriorityQueueList* copy = new PriorityQueueList(original3);
+            int y = rand() % x + 1;
             t1 = std::chrono::steady_clock::now();
-            copy->modifyKey(1000, rand() % INT_MAX + 1);
+            copy->return_size();
             t2 = std::chrono::steady_clock::now();
             czasy3[i] = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() / 10;
             czas3 = czas3 + czasy3[i];
